@@ -10,6 +10,14 @@ Example
 
 ![omni](/screenshot/omni.png)
 
+Install
+-------
+
+```
+$ cargo install omni-cmd
+$ omni
+```
+
 
 License
 -------
