@@ -151,15 +151,17 @@ fn get_zones() -> Result<String> {
 }
 
 fn get_zpools() -> Result<String> {
-    let output = run! { "zpool list -Ho name,cap" }?;
+    let output = run! { "zpool list -Ho name,cap,alloc,size" }?;
 
     let mut zpools = vec![];
     for line in output.lines() {
         let spl: Vec<_> = line.split_whitespace().collect();
         let name = spl[0].to_string();
-        let used = spl[1].to_string();
+        let _used = spl[1].to_string();
+        let alloc = spl[2].to_string();
+        let size = spl[3].to_string();
 
-        zpools.push(format!("{} {}", name, used));
+        zpools.push(format!("{} {}/{}", name, alloc, size));
     }
 
     let s = zpools.join(", ");
