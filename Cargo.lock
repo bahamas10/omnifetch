@@ -68,7 +68,7 @@ dependencies = [
 
 [[package]]
 name = "omnifetch"
-version = "0.1.1"
+version = "1.0.1"
 dependencies = [
  "anyhow",
  "indexmap",
