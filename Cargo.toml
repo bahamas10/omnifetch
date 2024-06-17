@@ -1,15 +1,11 @@
 [package]
 name = "omnifetch"
-version = "0.1.1"
+version = "1.0.0"
 edition = "2021"
 description = "Print information about an OmniOS machine."
 readme = "README.md"
 license = "MIT"
 repository = "https://github.com/bahamas10/omnifetch"
-
-[[bin]]
-name = "omni"
-path = "src/main.rs"
 
 [dependencies]
 anyhow = "1.0.86"

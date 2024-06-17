@@ -1,5 +1,5 @@
-omniftch
-========
+omnifetch
+=========
 
 Print information about an [OmniOS](https://omnios.org) machine.
 
@@ -8,7 +8,7 @@ Inspired by [Neofetch](https://github.com/dylanaraps/neofetch)
 Example
 -------
 
-![omni](/screenshot/omni.png)
+![omnifetch](/screenshot/omnifetch.png)
 
 Install
 -------
@@ -17,7 +17,6 @@ Install
 $ cargo install omnifetch
 $ omnifetch
 ```
-
 
 License
 -------
