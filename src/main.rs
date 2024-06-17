@@ -202,8 +202,15 @@ fn main() -> Result<()> {
     output.push("".to_string());
 
     // finally print the gathered data
+    // figure out max key length
+    let max = data.keys().map(|s| s.len()).max().expect("no data");
     for (key, value) in data {
-        output.push(format!("$(c1){}:$(c0) {}", key, value));
+        output.push(format!(
+            "$(c1){:>width$}$(c0)  {}",
+            key,
+            value,
+            width = max
+        ));
     }
 
     let fenix_lines: Vec<_> = FENIX.lines().collect();
