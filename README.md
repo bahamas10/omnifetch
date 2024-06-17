@@ -1,5 +1,5 @@
-Omni
-====
+omniftch
+========
 
 Print information about an [OmniOS](https://omnios.org) machine.
 
@@ -14,8 +14,8 @@ Install
 -------
 
 ```
-$ cargo install omni-cmd
-$ omni
+$ cargo install omnifetch
+$ omnifetch
 ```
 
 
