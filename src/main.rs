@@ -11,7 +11,7 @@ use std::env;
 use std::fs;
 use std::time::SystemTime;
 
-use anyhow::{Context, Result};
+use anyhow::{ensure, Context, Result};
 use indexmap::IndexMap;
 
 mod util;
@@ -109,8 +109,30 @@ fn get_memory() -> Result<String> {
     let output = run! { "lgrpinfo -m" }?;
     let lines: Vec<_> = output.lines().collect();
 
+    // get the 2nd line after the first colon
     let spl: Vec<_> = lines[1].split(':').collect();
-    let s = spl[1].trim().into();
+    let s = spl[1].trim().to_string();
+
+    // at this point the string in "s" should look like:
+    // "installed 256G, allocated 246G, free 9.6G"
+    // create a hashmap of the data
+    let mut map = HashMap::new();
+    for obj in s.split(", ") {
+        let spl: Vec<_> = obj.split_whitespace().collect();
+        ensure!(spl.len() == 2, "invalid lgrpinf -m output");
+
+        let key = spl[0];
+        let value = spl[1];
+
+        map.insert(key, value);
+    }
+
+    let installed = map["installed"];
+    let allocated = map["allocated"];
+    let _free = map["free"];
+
+    // format the string
+    let s = format!("{} / {} installed", allocated, installed);
 
     Ok(s)
 }
