@@ -49,13 +49,49 @@ fn get_kernel() -> Result<String> {
 }
 
 fn get_cpu() -> Result<String> {
+    // strings to remove from the CPU brand name
+    // borrowed heavily from neofetch
+    let strings_to_remove = [
+        "(TM)",
+        "(tm)",
+        "(R)",
+        "(r)",
+        "CPU",
+        "Processor",
+        "Dual-Core",
+        "Quad-Core",
+        "Six-Core",
+        "Eight-Core",
+        " Compute Cores",
+        "Core / ",
+        "(\"AuthenticAMD\"*)",
+        "with Radeon",
+        "Graphics",
+        ", altivec supported",
+        "FPU",
+        "Chip Revision",
+        "Technologies, Inc",
+        "Core2/Core 2",
+    ];
+
     let output = run! { "kstat -p cpu_info:::brand" }?;
     let lines = output.lines();
 
     let mut counts = HashMap::new();
     for line in lines {
         let spl: Vec<_> = line.split('\t').collect();
-        let brand = spl[1];
+        let mut brand = spl[1].to_string();
+
+        // remove extra strings
+        for s in strings_to_remove {
+            brand = brand.replace(s, "");
+        }
+
+        // remove any extraneous spaces
+        let parts: Vec<_> = brand.split_whitespace().collect();
+        let brand = parts.join(" ");
+
+        // frequency count them
         *counts.entry(brand).or_insert(0) += 1;
     }
 
