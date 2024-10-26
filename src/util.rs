@@ -43,7 +43,7 @@ pub fn colorize(s: &str) -> String {
     if should_colorize() {
         s.replace("$(c0)", "\x1B[0m")
             .replace("$(c1)", "\x1B[0m\x1B[38;5;208m")
-            .replace("$(c2)", "\x1B[0m\x1B[38;2;8m")
+            .replace("$(c2)", "\x1B[0m\x1B[38;5;8m")
     } else {
         s.replace("$(c0)", "").replace("$(c1)", "").replace("$(c2)", "")
     }
